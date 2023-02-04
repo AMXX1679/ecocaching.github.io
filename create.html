@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+        integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="body-overlay opacity-80" style="background-color: #g151c54"></div>
+    <div class="container">^
+        <div class="header">
+            <h1>create</h1>
+
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control taskname" placeholder="Enter Your Task"
+                aria-label="Recipient's username" aria-describedby="basic-addon2" />
+
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary btnTask">
+                    Add Task
+                </button>
+            </div>
+        </div>
+        <ul class="tasklist"></ul>
+
+    </div>
+
+    <style>
+        h1,
+        p {
+            text-align: center;
+        }
+
+        body {
+            color: #435757;
+            background-image: url(https://learnwith.hasinhayder.com/wp/wp-content/uploads/2018/07/emile-perron-190221-unsplash-banner.jpg);
+            background-color: linear-gradient(-20deg, #d0b782 20%, #a0cecf 80%);
+            font-family: Roboto, sans-serif;
+            height: 100vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .container {
+            max-width: 570px;
+            top: 125px;
+            margin: 0 auto;
+            padding: 12px 25px 50px;
+            border-top: 5px solid rgba(255, 255, 255, 0.16);
+            background: linear-gradient(to right,
+                    #0dabf31c 0,
+                    #2b2f5c00 51%,
+                    #2a2e5b00 100%);
+            background-color: rgba(22, 27, 72, 0.83);
+            user-select: none;
+            z-index: 100;
+            position: relative;
+            box-shadow: 0 10px 15px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .body-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.79;
+            z-index: 10;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        .header {
+            padding-bottom: 17px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #0dabf3;
+            top: -42px;
+            margin-top: -13px;
+            font-family: cursive;
+        }
+
+        .list-group-item {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px dashed rgba(169, 167, 167, 0.34) !important;
+            border: none;
+            color: #fff;
+            font-size: 19px;
+            font-weight: 300;
+        }
+
+        .btnTask {
+            background: #0dabf3;
+            margin-left: 5px;
+        }
+
+        .list-group,
+        .list-group-item {
+            background: 0 0 !important;
+        }
+
+        .btnClear,
+        .btnClear:hover {
+            color: #ffc107;
+            float: right;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 20px;
+            color: #0dabf3;
+        }
+    </style>
+
+    <script>
+        var inp = document.querySelector(".taskname");
+            var list = document.querySelector(".tasklist");
+            var addTask = document.querySelector(".btnTask");
+            var taskClear = document.querySelector(".btnClear");
+            var taskList = [];
+
+            function render(elemments) {
+                list.innerHTML = "";
+                elemments.forEach(e => {
+                    let newEl = document.createElement("li");
+                    newEl.innerHTML = e;
+                    newEl.classList.add("list-group-item");
+                    list.appendChild(newEl);
+                });
+            }
+
+            addTask.addEventListener("click", e => {
+                if (inp.value !== "") {
+                    taskList.push(inp.value);
+                    inp.value = "";
+                    render(taskList);
+                    localStorage.setItem("mylist", JSON.stringify(taskList));
+                    taskClear.style.display = "block";
+                    
+                } else {
+                    alert("Please input your task");
+                }
+            });
+
+            let saved = localStorage.getItem("mylist");
+            if (saved) {
+                taskList = JSON.parse(localStorage.getItem("mylist"));
+                render(taskList);
+            } else {
+                taskClear.style.display = "none";
+            }
+
+            taskClear.addEventListener("click", function () {
+                localStorage.clear();
+                list.innerHTML = "";
+                taskList = [];
+                taskClear.style.display = "none";
+            });
+
+    </script>
+</body>
+
+</html>

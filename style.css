@@ -1,0 +1,14 @@
+#titel {
+    background-image: url(/img/forest-g4a26d870f_640.jpg);
+        background-repeat: repeat;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+}
+
+
+
+.row {
+    display: grid;
+    place-items: center;
+    height: 60vh;
+}
